@@ -2,6 +2,8 @@ import re
 
 from . import tlds
 
+tlds_sort = "|".join([g for g in sorted(tlds.tlds_list)])
+
 
 class Url:
     def __init__(self, full: str, domain: str, protocol: str = None):
@@ -24,8 +26,6 @@ class UrlRegex:
 
     @property
     def build_regex(self):
-        tlds_sort = "|".join([g for g in sorted(tlds.tlds_list)])
-
         protocol = f"(?:(?:[a-z]+:)?//){'?' if self.strict else ''}"
         auth = "(?:\\S+(?::\\S*)?@)?"
         host = "(?:(?:[a-z\\u00a1-\\uffff0-9][-_]*)*[a-z\\u00a1-\\uffff0-9]+)"
