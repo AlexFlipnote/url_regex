@@ -38,6 +38,24 @@ class UrlRegex:
         return regex
 
     @property
+    def debug(self):
+        """ Check out how the script handles everything """
+        all_groups = []
+        find_all = re.search(self.regex, self.input.lower())
+        for g in range(20):
+            try:
+                all_groups.append(find_all.group(g))
+            except IndexError:
+                break
+
+        output = [
+            str(" ".join([g for g in all_groups])),
+            str(self.links)
+        ]
+
+        print("".join(output))
+
+    @property
     def detect(self):
         """ Checks if string includes one or more links """
         return re.search(self.regex, self.input.lower()) is not None
